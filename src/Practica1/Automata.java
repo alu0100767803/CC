@@ -14,13 +14,67 @@ import java.util.ArrayList;
  */
 public class Automata {
 
-	private ArrayList<String> nodos;							// Vector que contiene todos los nodos del autómata de pila
-	private String estadoInicial;									// Variable que contiene el estado inicial del autómata de pila
-	private String[] estadosAceptacion;						// Vector con los estados de aceptación del autómata de pila
-	private Transicion[][] matrizTransiciones; 		// Matriz con las trancisiones de los nodos
+	private ArrayList<String> nodos;																					// Vector que contiene todos los nodos del autómata de pila
+	private String estadoInicial;																							// Variable que contiene el estado inicial del autómata de pila
+	private ArrayList<String> estadosAceptacion;															// Vector con los estados de aceptación del autómata de pila
+	private ArrayList<ArrayList<ArrayList<Transicion>>> matrizTransiciones; 	// Matriz con las trancisiones de los nodos
 	
 	
-	public Automata(){
+	public Automata(String inicial, ArrayList<String> nodos, ArrayList<String> aceptacion){
+		
+		matrizTransiciones = new ArrayList<ArrayList<ArrayList<Transicion>>>();
+		this.nodos = nodos;
+		estadoInicial = inicial;
+		estadosAceptacion = aceptacion;
 		
 	}
+	
+	public void insertarTransicion(int i, int j, Transicion transicion){
+		
+		getMatrizTransiciones().get(i).get(j).add(transicion);
+		
+	}
+
+	//--------------------------------------Getters y Setters---------------------------------------
+
+	public ArrayList<String> getNodos() {
+		return nodos;
+	}
+
+
+	public void setNodos(ArrayList<String> nodos) {
+		this.nodos = nodos;
+	}
+
+
+	public String getEstadoInicial() {
+		return estadoInicial;
+	}
+
+
+	public void setEstadoInicial(String estadoInicial) {
+		this.estadoInicial = estadoInicial;
+	}
+
+
+	public ArrayList<String> getEstadosAceptacion() {
+		return estadosAceptacion;
+	}
+
+
+	public void setEstadosAceptacion(ArrayList<String> estadosAceptacion) {
+		this.estadosAceptacion = estadosAceptacion;
+	}
+
+
+	public ArrayList<ArrayList<ArrayList<Transicion>>> getMatrizTransiciones() {
+		return matrizTransiciones;
+	}
+
+
+	public void setMatrizTransiciones(ArrayList<ArrayList<ArrayList<Transicion>>> matrizTransiciones) {
+		this.matrizTransiciones = matrizTransiciones;
+	}
+
+	
 }

@@ -27,6 +27,8 @@ public class Controlador {
 	
 	public Controlador(String fichero, String cadena) throws IOException{
 
+		BufferedReader br = new BufferedReader(new FileReader(fichero));
+		String cad;
 	}
 
 	/*private ArrayList<String> leerVector(String linea) {
