@@ -5,7 +5,9 @@ Repositorio con las practicas de la asignatura Complejidad Computacional, en el 
 
 ## Autor
 Jorge Alonso Hernández
+
 Correo: alu0100767803@ull.edu.es
+
 Universidad de La Laguna, Escuela Superior de Ingeniería y Tecnología, 4º Itinerario de computación
 
 ## Lenguaje de programación empleado
