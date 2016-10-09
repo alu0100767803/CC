@@ -17,21 +17,15 @@ public class Automata {
 	private ArrayList<String> nodos;																					// Vector que contiene todos los nodos del autómata de pila
 	private String estadoInicial;																							// Variable que contiene el estado inicial del autómata de pila
 	private ArrayList<String> estadosAceptacion;															// Vector con los estados de aceptación del autómata de pila
-	private ArrayList<ArrayList<ArrayList<Transicion>>> matrizTransiciones; 	// Matriz con las trancisiones de los nodos
-	
+	//private ArrayList<ArrayList<ArrayList<Transicion>>> matrizTransiciones; 	// Matriz con las trancisiones de los nodos
+	private Transiciones[][] matrizTransiciones;
 	
 	public Automata(String inicial, ArrayList<String> nodos, ArrayList<String> aceptacion){
 		
-		matrizTransiciones = new ArrayList<ArrayList<ArrayList<Transicion>>>();
+		//matrizTransiciones = new Transiciones[n][m];
 		this.nodos = nodos;
 		estadoInicial = inicial;
 		estadosAceptacion = aceptacion;
-		
-	}
-	
-	public void insertarTransicion(int i, int j, Transicion transicion){
-		
-		getMatrizTransiciones().get(i).get(j).add(transicion);
 		
 	}
 
@@ -66,13 +60,11 @@ public class Automata {
 		this.estadosAceptacion = estadosAceptacion;
 	}
 
-
-	public ArrayList<ArrayList<ArrayList<Transicion>>> getMatrizTransiciones() {
+	public Transiciones[][] getMatrizTransiciones() {
 		return matrizTransiciones;
 	}
 
-
-	public void setMatrizTransiciones(ArrayList<ArrayList<ArrayList<Transicion>>> matrizTransiciones) {
+	public void setMatrizTransiciones(Transiciones[][] matrizTransiciones) {
 		this.matrizTransiciones = matrizTransiciones;
 	}
 

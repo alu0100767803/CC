@@ -21,6 +21,7 @@ public class Entrada {
 	public Entrada(ArrayList<String> cadena, ArrayList<String> alfabeto){
 		this.cadena = cadena;
 		alfabetoEntrada = alfabeto;
+		cadenaAceptada = false;
 		comprobarCadena();
 	}
 	

@@ -8,7 +8,7 @@ Jorge Alonso Hernández
 
 Correo: alu0100767803@ull.edu.es
 
-Universidad de La Laguna, Escuela Superior de Ingeniería y Tecnología, 4º Itinerario de computación
+Universidad de La Laguna, Escuela Superior de Ingeniería y Tecnología, 4º, Itinerario de computación
 
 ## Lenguaje de programación empleado
 * Java
