@@ -77,7 +77,7 @@ public class Main {
 					break;
 			}
 		}
-		Controlador controlador = new Controlador(fichero, cadena);
+		Automata controlador = new Automata(fichero, cadena);
 		
 		
 		

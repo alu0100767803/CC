@@ -15,6 +15,8 @@ import java.util.Stack;
  */
 public class Pila {
 	
+	private final String VACIO = ".";					// Simbolo que representa el no consumir elemento de la pila
+	
 	private Stack<String> pila;								// pila del autómata
 	private ArrayList<String> alfabetoPila;		// alfabeto de la pila del autómata
 	private String simboloInicial;						// símbolo inicial de la pila del autómata

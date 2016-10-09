@@ -14,6 +14,8 @@ import java.util.ArrayList;
  */
 public class Entrada {
 	
+	private final String VACIO = ":"; 						// Simbolo que representa el no consumir nada de la cadena de entrada
+	
 	private ArrayList<String> cadena;							// Cadena a ser evaluada
 	private ArrayList<String> alfabetoEntrada;		// Alfabeto de la cadena introducida
 	private boolean cadenaAceptada;								// Variable que contiene un true si la cadena es aceptada por el autómata de pila
