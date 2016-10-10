@@ -188,6 +188,7 @@ public class Automata {
 	 * Método que muestra los elementos del autómata
 	 */
 	public void mostrarElementosAutomata(){
+		System.out.println("Cadena de entrada: " + getEntradaAutomata().getCadena());
 		System.out.println("Estados del automata: " + getNodos());
 		System.out.println("Alfabeto de la entrada: " + getEntradaAutomata().getAlfabetoEntrada());
 		System.out.println("Alfabeto de la pila: " + getPilaAutomata().getAlfabetoPila());

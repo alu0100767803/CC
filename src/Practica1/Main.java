@@ -29,16 +29,16 @@ public class Main {
 		String ficheroCadena = null;
 		String cadena = null;
 		int opcion = 0;
-		File f = null;
+		File fich = null;
 		boolean opcionValida = false;
 		
 		while(!existeFichero){
-			System.out.println("---Autómata de pila---");
+			System.out.println("---Autómata de pila por estado final---");
 			System.out.println("Introducir fichero con el autómata de pila: ");
 			fichero = sc.nextLine();
 			// Comprobacion de si existe el fichero
-			f = new File(fichero);
-			if(f.exists())
+			fich = new File(fichero);
+			if(fich.exists())
 				existeFichero = true;
 			else{
 				System.out.println("El fichero \"" + fichero + "\" no existe");
@@ -49,7 +49,7 @@ public class Main {
 		System.out.println();
 		
 		while(!opcionValida){
-			System.out.println("---Autómata de pila---");
+			System.out.println("---Autómata de pila por estado final---");
 			System.out.println("1. Introducir fichero con cadena a analizar");
 			System.out.println("2. Introducir cadena por entrada de texto");
 			System.out.println("Introducir el número de la opción: ");
@@ -57,15 +57,18 @@ public class Main {
 			switch(opcion){
 				case 1: while(!existeFichero){
 									System.out.println("Introducir fichero con la cadena: ");
+									sc = new Scanner(System.in);
 									ficheroCadena = sc.nextLine();
-									f = new File(ficheroCadena);
-									if(f.exists())
+									fich = new File(ficheroCadena);
+									if(fich.exists())
 										existeFichero = true;
 									else{
 										System.out.println("El fichero \"" + ficheroCadena + "\" no existe");
 										System.out.println();
 									}
 								}
+								Scanner scan = new Scanner(fich);
+								cadena = scan.nextLine();
 								opcionValida = true;
 					break;
 				case 2: 	System.out.print("Introducir la cadena de entrada: ");
