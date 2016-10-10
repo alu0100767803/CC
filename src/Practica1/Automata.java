@@ -5,6 +5,7 @@ package Practica1;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -23,7 +24,7 @@ public class Automata {
 	private String estadoInicial;																							// Variable que contiene el estado inicial del autómata de pila
 	private ArrayList<String> estadosAceptacion;															// Vector con los estados de aceptación del autómata de pila
 	//private ArrayList<ArrayList<ArrayList<Transicion>>> matrizTransiciones; 	// Matriz con las trancisiones de los nodos
-	private Transiciones[][] matrizTransiciones;
+	private ArrayList<ArrayList<Transicion>> matrizTransiciones;
 	
 	private Entrada entradaAutomata;
 	private Pila pilaAutomata;
@@ -92,10 +93,49 @@ public class Automata {
 			System.out.println(vectorCadena);
 			
 			// Creación de las transiciones
+			matrizTransiciones = new ArrayList<ArrayList<Transicion>>();
+			while(lector.hasNextLine()){
+				cad = lector.nextLine();
+				ArrayList<String> aux = leerVector(cad);
+				anyadirTransicion(aux);
+			}
 			
-			int n;
-			int m;
+			mostrarTransiciones();
 		
+	}
+	
+	public void anyadirTransicion(ArrayList<String> aux){
+		int nodo = obtenerIndiceNodo(aux.get(0));
+		String elemCadena = aux.get(1);
+		String elemPila = aux.get(2);
+		String nodoDestino = aux.get(3);
+		ArrayList<String> intrPila = new ArrayList<String>();
+		for(int i = 4; i < aux.size(); i++)
+			intrPila.add(aux.get(i));
+		
+		Transicion transicion = new Transicion(nodoDestino, elemCadena, elemPila, intrPila);
+		System.out.println(nodo);
+		if(getMatrizTransiciones().isEmpty()){
+			ArrayList<Transicion> auxiliar = new ArrayList<Transicion>();
+			auxiliar.add(transicion);
+			getMatrizTransiciones().add(auxiliar);
+		}
+		
+		else if(nodo >= getMatrizTransiciones().size()){
+			ArrayList<Transicion> auxiliar = new ArrayList<Transicion>();
+			auxiliar.add(transicion);
+			getMatrizTransiciones().add(auxiliar);
+		}
+		else
+			getMatrizTransiciones().get(nodo).add(transicion);
+	}
+	
+	public int obtenerIndiceNodo(String nodo){
+		for(int i = 0; i < getNodos().size(); i++)
+			if(getNodos().get(i).equals(nodo))
+				return i;
+		// Poner excepcion por si no existe el nodo
+		return -1;
 	}
 	
 	public ArrayList<String> leerVector(String cadena){
@@ -107,30 +147,24 @@ public class Automata {
 		return aux;
 	}
 	
-	public int getFila(String estado){
-		for(int i = 0; i < matrizTransiciones[0].length; i++){
-			if(getNodos().get(i).equals(estado))
-				return i;
+	public void mostrarTransiciones(){
+		for(int i = 0; i < getMatrizTransiciones().size(); i++){
+			for(int j = 0; j < getMatrizTransiciones().get(i).size();j++){
+				System.out.print("Desde " + getNodos().get(i));
+				System.out.print(" con el simbolo " + getMatrizTransiciones().get(i).get(j).getElemCadena());
+				System.out.print(" y el simbolo " + getMatrizTransiciones().get(i).get(j).getElemPila() + " en la pila ");
+				System.out.print(" Voy al nodo " + getMatrizTransiciones().get(i).get(j).getNodo());
+				System.out.print(" e introduzco en la pila ");
+				for(int k = 0; k < getMatrizTransiciones().get(i).get(j).getIntrPila().size(); k++){
+					System.out.print(getMatrizTransiciones().get(i).get(j).getIntrPila().get(k) + " ");
+				}
+				
+				System.out.println();
+			}
 		}
-		
-		System.out.println("No existe el estado: \"" + estado + "\"" );
-		System.exit(0);
-		// Aqui pedir otra maquina
-		return 0;
-		
 	}
 	
-	/*public int getColumna(String simbolo){
-		for(int i = 0; i < matrizTransiciones.length; i++){
-			if(getEntradaAutomata().getAlfabetoEntrada().get(i).equals(simbolo))
-				return i;
-		}
-		
-		System.out.println("No existe transicion con el simbolo: \"" + simbolo + "\"" );
-		System.exit(0);
-		// Aqui mandar a pedir otra cadena
-		return 0;
-	}*/
+
 
 	//--------------------------------------Getters y Setters---------------------------------------
 
@@ -163,14 +197,6 @@ public class Automata {
 		this.estadosAceptacion = estadosAceptacion;
 	}
 
-	public Transiciones[][] getMatrizTransiciones() {
-		return matrizTransiciones;
-	}
-
-	public void setMatrizTransiciones(Transiciones[][] matrizTransiciones) {
-		this.matrizTransiciones = matrizTransiciones;
-	}
-
 	public Entrada getEntradaAutomata() {
 		return entradaAutomata;
 	}
@@ -185,6 +211,14 @@ public class Automata {
 
 	public void setPilaAutomata(Pila pilaAutomata) {
 		this.pilaAutomata = pilaAutomata;
+	}
+
+	public ArrayList<ArrayList<Transicion>> getMatrizTransiciones() {
+		return matrizTransiciones;
+	}
+
+	public void setMatrizTransiciones(ArrayList<ArrayList<Transicion>> matrizTransiciones) {
+		this.matrizTransiciones = matrizTransiciones;
 	}
 
 	
