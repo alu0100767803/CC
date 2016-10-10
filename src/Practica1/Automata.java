@@ -212,6 +212,121 @@ public class Automata {
 	 */
 	public void ejecutar(){
 		
+		PilaEjecucion pilaEjecucion = new PilaEjecucion();
+		
+		String estadoActual = getEstadoInicial();
+		ArrayList<Transicion> transicionesPosibles = null;
+		EstadoAutomata estAutomata;
+		
+		boolean bucle = true;
+		
+		/////bucle
+		while(bucle){
+				transicionesPosibles = buscarTransiciones(estadoActual, obtenerElemCadena(), obtenerTopPila());
+				System.out.print(" Estado: " + estadoActual);
+				System.out.print(" Elem cad: " + obtenerElemCadena());
+				System.out.print(" Elem pila: " + obtenerTopPila());
+				System.out.println();
+				//System.out.println("numero de transiciones posibles: " + transicionesPosibles.size());
+				if(transicionesPosibles.isEmpty()){
+					if(pilaEjecucion.pilaVacia()){
+						if(getEntradaAutomata().getCadena().isEmpty()  && isAceptacion(estadoActual)){
+							getEntradaAutomata().setCadenaAceptada(true);
+							bucle = false;
+							System.out.println("Entro1");
+						}
+						else{
+							getEntradaAutomata().setCadenaAceptada(false);
+							bucle = false;
+							System.out.println("Entro2");
+						}
+					}
+					
+				}
+				else if(transicionesPosibles.size() > 1){
+				estAutomata = new EstadoAutomata(estadoActual, getPilaAutomata().getPila(), getEntradaAutomata().getCadena(), transicionesPosibles);
+				pilaEjecucion.intrEstado(estAutomata);
+				
+				//transitar
+				estadoActual = transicionesPosibles.get(0).getNodo();
+				if(!getEntradaAutomata().getCadena().get(0).equals(getEntradaAutomata().getVACIO()))
+					getEntradaAutomata().elimElem();
+				if(!getPilaAutomata().obtenerTop().equals(getPilaAutomata().getVACIO()))
+					getPilaAutomata().eliminalElemento();
+				for(int i = transicionesPosibles.get(0).getIntrPila().size() - 1; i >= 0; i--){
+					if(!transicionesPosibles.get(0).getIntrPila().get(i).equals(getPilaAutomata().getVACIO()))
+						getPilaAutomata().insertarElemento(transicionesPosibles.get(0).getIntrPila().get(i));
+				}
+				//
+			}
+			
+			else if(transicionesPosibles.size() == 1){
+				estadoActual = transicionesPosibles.get(0).getNodo();
+				if(!getEntradaAutomata().getCadena().get(0).equals(getEntradaAutomata().getVACIO()))
+					getEntradaAutomata().elimElem();
+				if(!getPilaAutomata().obtenerTop().equals(getPilaAutomata().getVACIO()))
+					getPilaAutomata().eliminalElemento();
+				for(int i = transicionesPosibles.get(0).getIntrPila().size() - 1; i >= 0; i--){
+					if(!transicionesPosibles.get(0).getIntrPila().get(i).equals(getPilaAutomata().getVACIO()))
+						getPilaAutomata().insertarElemento(transicionesPosibles.get(0).getIntrPila().get(i));
+				}
+			}
+			
+			else{
+				EstadoAutomata aux = pilaEjecucion.obtenerTop();
+				estadoActual = aux.getEstadoActual();
+				getPilaAutomata().setPila(aux.getEstadoPila());
+				//nodosAEliminar = aux.getNodosAEliminar();
+				
+			}
+			//
+		}
+		
+		if(getEntradaAutomata().isCadenaAceptada())
+			System.out.println("Cadena aceptada");
+		else
+			System.out.println("Cadena rechazada");
+		
+	}
+	
+	public boolean isAceptacion(String nodo){
+		for(int i = 0; i < getEstadosAceptacion().size(); i++)
+			if(nodo.equals(getEstadosAceptacion().get(i)))
+				return true;
+		return false;
+	}
+	
+	public String obtenerTopPila(){
+		return getPilaAutomata().obtenerTop();
+	}
+	
+	public String obtenerElemCadena(){
+		if(getEntradaAutomata().getCadena().isEmpty())
+			return "";
+		else
+			return getEntradaAutomata().getCadena().get(0);
+	}
+	
+	public ArrayList<Transicion> buscarTransiciones(String estado, String elemCad, String elemPila){
+		ArrayList<Transicion> aux = new ArrayList<Transicion>();
+		if(elemCad.isEmpty()){
+			return aux;
+		}
+		else{
+			Transicion transicion = null;
+			int nodo = obtenerIndiceNodo(estado);
+			for(int i = 0; i < getMatrizTransiciones().get(nodo).size(); i++){
+				if(getMatrizTransiciones().get(nodo).get(i).getElemCadena().equals(elemCad) 
+						&& getMatrizTransiciones().get(nodo).get(i).getElemPila().equals(elemPila)){
+					transicion = getMatrizTransiciones().get(nodo).get(i); 
+					aux.add(transicion);
+				}
+			}
+		}
+		/*for(int i = 0; i < elim; i++)
+			if(aux.size() > 0)
+				aux.remove(0);*/
+		return aux;
 	}
 	
 

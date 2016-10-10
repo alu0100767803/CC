@@ -27,6 +27,11 @@ public class Entrada {
 		comprobarCadena();
 	}
 	
+	public void elimElem(){
+		if(!getCadena().isEmpty())
+			getCadena().remove(0);
+	}
+	
 	/**
 	 * Método que compruba si la cadena pertenece al alfabeto de la entrada
 	 */

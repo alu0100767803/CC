@@ -80,7 +80,8 @@ public class Main {
 					break;
 			}
 		}
-		Automata controlador = new Automata(fichero, cadena);
+		Automata automata = new Automata(fichero, cadena);
+		automata.ejecutar();
 		
 		
 		

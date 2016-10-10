@@ -63,6 +63,10 @@ public class Pila {
 			salirConError(elemento);
 	}
 	
+	public void eliminalElemento(){
+		getPila().pop();
+	}
+	
 	/**
 	 * Metodo que saldrá del programa si el elemento no pertenece al alfabeto de la pila
 	 * @param elemento
@@ -78,7 +82,7 @@ public class Pila {
 	 */
 	public String obtenerTop(){
 		if(!getPila().isEmpty())
-			return getPila().pop();
+			return getPila().get(getPila().size() - 1);
 		else{
 			System.out.println("Error: Pila vacía");
 			System.exit(0);
@@ -108,6 +112,10 @@ public class Pila {
 
 	public void setSimboloInicial(String simboloInicial) {
 		this.simboloInicial = simboloInicial;
+	}
+
+	public String getVACIO() {
+		return VACIO;
 	}
 
 }
