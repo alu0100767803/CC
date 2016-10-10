@@ -38,7 +38,7 @@ public class Entrada {
 	}
 	
 	/**
-	 * COmprueba si el elemento pertenece al alafabeo de la entradas
+	 * Comprueba si el elemento pertenece al alafabeo de la entradas
 	 * @param elemento
 	 * @return
 	 */
