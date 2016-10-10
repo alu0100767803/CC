@@ -43,6 +43,8 @@ public class Entrada {
 	 * @return
 	 */
 	public boolean comprobarElemento(String elemento){
+		if(elemento.equals(getVACIO()))
+			return true;
 		for(int i = 0; i < getAlfabetoEntrada().size(); i++){
 			if(elemento.equals(getAlfabetoEntrada().get(i)))
 				return true;
@@ -86,5 +88,11 @@ public class Entrada {
 	public void setCadenaAceptada(boolean cadenaAceptada) {
 		this.cadenaAceptada = cadenaAceptada;
 	}
+
+	public String getVACIO() {
+		return VACIO;
+	}
+	
+	
 
 }

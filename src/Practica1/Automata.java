@@ -104,6 +104,10 @@ public class Automata {
 		
 	}
 	
+	/**
+	 * Método que añade una transicion al nodo que pertenece
+	 * @param aux
+	 */
 	public void anyadirTransicion(ArrayList<String> aux){
 		int nodo = obtenerIndiceNodo(aux.get(0));
 		String elemCadena = aux.get(1);
@@ -130,6 +134,11 @@ public class Automata {
 			getMatrizTransiciones().get(nodo).add(transicion);
 	}
 	
+	/**
+	 * Método que devuelve el indice del nodo 
+	 * @param nodo
+	 * @return
+	 */
 	public int obtenerIndiceNodo(String nodo){
 		for(int i = 0; i < getNodos().size(); i++)
 			if(getNodos().get(i).equals(nodo))
@@ -138,6 +147,11 @@ public class Automata {
 		return -1;
 	}
 	
+	/**
+	 * Método que lee una fila por fichero y devuelve un vector de String de la cadena
+	 * @param cadena
+	 * @return
+	 */
 	public ArrayList<String> leerVector(String cadena){
 		ArrayList<String> aux = new ArrayList<String>();
 		StringTokenizer st = new StringTokenizer(cadena, " ");
@@ -147,6 +161,9 @@ public class Automata {
 		return aux;
 	}
 	
+	/**
+	 * Método que muestra por pantalla todas las transiciones del autómata
+	 */
 	public void mostrarTransiciones(){
 		for(int i = 0; i < getMatrizTransiciones().size(); i++){
 			for(int j = 0; j < getMatrizTransiciones().get(i).size();j++){
@@ -162,6 +179,13 @@ public class Automata {
 				System.out.println();
 			}
 		}
+	}
+	
+	/**
+	 * Método que va a ejecutar el autómata y comprueba la cadena de entrada
+	 */
+	public void ejecutar(){
+		
 	}
 	
 
