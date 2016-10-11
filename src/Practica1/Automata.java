@@ -145,7 +145,8 @@ public class Automata {
 		for(int i = 0; i < getNodos().size(); i++)
 			if(getNodos().get(i).equals(nodo))
 				return i;
-		// Poner excepcion por si no existe el nodo
+		System.out.println("No existe transicion");
+		System.exit(0);
 		return -1;
 	}
 	
@@ -248,7 +249,17 @@ public class Automata {
 				pilaEjecucion.intrEstado(estAutomata);
 				
 				//transitar
+				/*System.out.print("Numero de transiciones posibles: " + transicionesPosibles.size());
 				estadoActual = transicionesPosibles.get(0).getNodo();
+				if(!getEntradaAutomata().getCadena().isEmpty())
+					getEntradaAutomata().elimElem();
+				if(!getPilaAutomata().getAlfabetoPila().isEmpty())
+					getPilaAutomata().eliminalElemento();
+				for(int i = transicionesPosibles.get(0).getIntrPila().size() - 1; i >= 0; i--){
+					if(!transicionesPosibles.get(0).getIntrPila().get(i).equals(getPilaAutomata().getVACIO()))
+						getPilaAutomata().insertarElemento(transicionesPosibles.get(0).getIntrPila().get(i));
+				}
+				
 				if(!getEntradaAutomata().getCadena().get(0).equals(getEntradaAutomata().getVACIO()))
 					getEntradaAutomata().elimElem();
 				if(!getPilaAutomata().obtenerTop().equals(getPilaAutomata().getVACIO()))
@@ -257,14 +268,14 @@ public class Automata {
 					if(!transicionesPosibles.get(0).getIntrPila().get(i).equals(getPilaAutomata().getVACIO()))
 						getPilaAutomata().insertarElemento(transicionesPosibles.get(0).getIntrPila().get(i));
 				}
-				//
+				*/
 			}
 			
 			else if(transicionesPosibles.size() == 1){
 				estadoActual = transicionesPosibles.get(0).getNodo();
-				if(!getEntradaAutomata().getCadena().get(0).equals(getEntradaAutomata().getVACIO()))
+				if(!getEntradaAutomata().getCadena().isEmpty())
 					getEntradaAutomata().elimElem();
-				if(!getPilaAutomata().obtenerTop().equals(getPilaAutomata().getVACIO()))
+				if(!getPilaAutomata().getAlfabetoPila().isEmpty())
 					getPilaAutomata().eliminalElemento();
 				for(int i = transicionesPosibles.get(0).getIntrPila().size() - 1; i >= 0; i--){
 					if(!transicionesPosibles.get(0).getIntrPila().get(i).equals(getPilaAutomata().getVACIO()))
@@ -309,12 +320,21 @@ public class Automata {
 	
 	public ArrayList<Transicion> buscarTransiciones(String estado, String elemCad, String elemPila){
 		ArrayList<Transicion> aux = new ArrayList<Transicion>();
+		Transicion transicion = null;
+		int nodo = obtenerIndiceNodo(estado);
+		
 		if(elemCad.isEmpty()){
-			return aux;
+			for(int i = 0; i < getMatrizTransiciones().get(nodo).size(); i++){
+				if(getMatrizTransiciones().get(nodo).get(i).getElemCadena().equals(getEntradaAutomata().getVACIO()) 
+						&& getMatrizTransiciones().get(nodo).get(i).getElemPila().equals(elemPila)){
+					transicion = getMatrizTransiciones().get(nodo).get(i);
+						System.out.println("Entro cadena vacia");
+						aux.add(transicion);
+				}
+				System.out.println("Aux: " + aux.size());
+			}
 		}
 		else{
-			Transicion transicion = null;
-			int nodo = obtenerIndiceNodo(estado);
 			for(int i = 0; i < getMatrizTransiciones().get(nodo).size(); i++){
 				if(getMatrizTransiciones().get(nodo).get(i).getElemCadena().equals(elemCad) 
 						&& getMatrizTransiciones().get(nodo).get(i).getElemPila().equals(elemPila)){

@@ -14,7 +14,7 @@ import java.util.ArrayList;
  */
 public class Entrada {
 	
-	private final String VACIO = ":"; 						// Simbolo que representa el no consumir nada de la cadena de entrada
+	private final String VACIO = "."; 						// Simbolo que representa el no consumir nada de la cadena de entrada
 	
 	private ArrayList<String> cadena;							// Cadena a ser evaluada
 	private ArrayList<String> alfabetoEntrada;		// Alfabeto de la cadena introducida
