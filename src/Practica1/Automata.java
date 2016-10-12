@@ -103,6 +103,7 @@ public class Automata {
 			anyadirTransicion(aux);
 		}
 		
+		System.out.println("Numero de nodos en getMatrices: " + getMatrizTransiciones().size());
 		mostrarTransiciones();
 	}
 	
@@ -323,7 +324,9 @@ public class Automata {
 		Transicion transicion = null;
 		int nodo = obtenerIndiceNodo(estado);
 		
+		if(getMatrizTransiciones().size() > nodo){
 		if(elemCad.isEmpty()){
+			System.out.println("Entro");
 			for(int i = 0; i < getMatrizTransiciones().get(nodo).size(); i++){
 				if(getMatrizTransiciones().get(nodo).get(i).getElemCadena().equals(getEntradaAutomata().getVACIO()) 
 						&& getMatrizTransiciones().get(nodo).get(i).getElemPila().equals(elemPila)){
@@ -346,6 +349,7 @@ public class Automata {
 		/*for(int i = 0; i < elim; i++)
 			if(aux.size() > 0)
 				aux.remove(0);*/
+		}
 		return aux;
 	}
 	
