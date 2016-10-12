@@ -30,8 +30,8 @@ public class PilaEjecucion {
 	}
 	
 	public EstadoAutomata obtenerTop(){
-		EstadoAutomata aux = getPilaEjecucion().get(getPilaEjecucion().size() - 1);
-		getPilaEjecucion().pop();
+			EstadoAutomata aux = getPilaEjecucion().get(getPilaEjecucion().size() - 1);
+			getPilaEjecucion().pop();
 		return aux;
 	}
 	//-------------------------Getters y Setters---------------------------------------------------

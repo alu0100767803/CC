@@ -31,6 +31,7 @@ public class Main {
 		int opcion = 0;
 		File fich = null;
 		boolean opcionValida = false;
+		ArrayList<String> vectorCadena = new ArrayList<String>();
 		
 		while(!existeFichero){
 			System.out.println("---Autómata de pila por estado final---");
@@ -47,41 +48,62 @@ public class Main {
 		}
 		existeFichero = false;
 		System.out.println();
-		
-		while(!opcionValida){
-			System.out.println("---Autómata de pila por estado final---");
-			System.out.println("1. Introducir fichero con cadena a analizar");
-			System.out.println("2. Introducir cadena por entrada de texto");
-			System.out.println("Introducir el número de la opción: ");
-			opcion = sc.nextInt();
-			switch(opcion){
-				case 1: while(!existeFichero){
-									System.out.println("Introducir fichero con la cadena: ");
-									sc = new Scanner(System.in);
-									ficheroCadena = sc.nextLine();
-									fich = new File(ficheroCadena);
-									if(fich.exists())
-										existeFichero = true;
-									else{
-										System.out.println("El fichero \"" + ficheroCadena + "\" no existe");
-										System.out.println();
+		Automata automata = new Automata(fichero, vectorCadena);
+			while(!opcionValida){
+				System.out.println("---Autómata de pila por estado final---");
+				System.out.println("1. Introducir fichero con cadena a analizar");
+				System.out.println("2. Introducir cadena por entrada de texto");
+				System.out.println("3. Introducir otro Automata");
+				System.out.println("4. Salir");
+				System.out.println("Introducir el número de la opción: ");
+				opcion = sc.nextInt();
+			//new ArrayList<String>(Arrays.asList(cadena.split("")));
+				switch(opcion){
+					case 1: while(!existeFichero){
+										System.out.println("Introducir fichero con la cadena: ");
+										sc = new Scanner(System.in);
+										ficheroCadena = sc.nextLine();
+										fich = new File(ficheroCadena);
+										if(fich.exists())
+											existeFichero = true;
+										else{
+											System.out.println("El fichero \"" + ficheroCadena + "\" no existe");
+											System.out.println();
+										}
 									}
-								}
-								Scanner scan = new Scanner(fich);
-								cadena = scan.nextLine();
-								opcionValida = true;
-					break;
-				case 2: 	System.out.print("Introducir la cadena de entrada: ");
-									sc = new Scanner(System.in);
-									cadena = sc.nextLine();
-									opcionValida = true;
-					break;
-				default: System.out.println("ERROR: la opcion elegida no existe");
-					break;
+									Scanner scan = new Scanner(fich);
+									cadena = scan.nextLine();
+									vectorCadena = new ArrayList<String>(Arrays.asList(cadena.split("")));
+									automata.getEntradaAutomata().setCadena(vectorCadena);
+									automata.ejecutar();
+						break;
+					case 2: 	System.out.print("Introducir la cadena de entrada: ");
+										sc = new Scanner(System.in);
+										cadena = sc.nextLine();
+										vectorCadena = new ArrayList<String>(Arrays.asList(cadena.split("")));
+										automata.getEntradaAutomata().setCadena(vectorCadena);
+										automata.ejecutar();
+						break;
+					case 3:		System.out.println("Introducir nuevo fichero");
+										sc = new Scanner(System.in);
+										ficheroCadena = sc.nextLine();
+										fich = new File(ficheroCadena);
+										if(fich.exists())
+											existeFichero = true;
+										else{
+											System.out.println("El fichero \"" + ficheroCadena + "\" no existe");
+											System.out.println();
+										}
+										// automata.actualizar();
+						break;
+					case 4:	System.out.println("Saliendo...");
+									System.exit(0);
+						break;
+					default: System.out.println("ERROR: la opcion elegida no existe");
+						break;
+				}
 			}
-		}
-		Automata automata = new Automata(fichero, cadena);
-		automata.ejecutar();
+		
 		
 		
 		

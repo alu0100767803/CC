@@ -24,9 +24,10 @@ public class EstadoAutomata {
 		estadoPila = estPila;
 		estadoCadena = estCad;
 		transicionesPosibles = tranPosibles;
-		nodosAEliminar = 1;
+		nodosAEliminar = 0;
 		
 	}
+	
 
 	//--------------------------------Getters y Setters--------------------------------------------
 	

@@ -36,9 +36,11 @@ public class Entrada {
 	 * Método que compruba si la cadena pertenece al alfabeto de la entrada
 	 */
 	public void comprobarCadena(){
-		for (int i = 0; i < getCadena().size(); i++){
-			if(!comprobarElemento(getCadena().get(i)))
-				salirConError(getCadena().get(i));
+		if(!getCadena().isEmpty()){
+			for (int i = 0; i < getCadena().size(); i++){
+				if(!comprobarElemento(getCadena().get(i)))
+					salirConError(getCadena().get(i));
+			}
 		}
 	}
 	
@@ -76,6 +78,7 @@ public class Entrada {
 
 	public void setCadena(ArrayList<String> cadena) {
 		this.cadena = cadena;
+		comprobarCadena();
 	}
 
 	public ArrayList<String> getAlfabetoEntrada() {
