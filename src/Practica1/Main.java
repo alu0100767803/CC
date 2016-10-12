@@ -23,7 +23,7 @@ public class Main {
 	 */
 	public static void main(String[] args) throws IOException {
 		
-		boolean existeFichero = false;		// Variable para comprobar si existe el fichero 
+		boolean existeFichero = false;						// Variable para comprobar si existe el fichero 
 		Scanner sc = new Scanner(System.in);
 		String fichero = null;
 		String ficheroCadena = null;
@@ -57,7 +57,6 @@ public class Main {
 				System.out.println("4. Salir");
 				System.out.println("Introducir el número de la opción: ");
 				opcion = sc.nextInt();
-			//new ArrayList<String>(Arrays.asList(cadena.split("")));
 				switch(opcion){
 					case 1: while(!existeFichero){
 										System.out.println("Introducir fichero con la cadena: ");
@@ -74,14 +73,14 @@ public class Main {
 									Scanner scan = new Scanner(fich);
 									cadena = scan.nextLine();
 									vectorCadena = new ArrayList<String>(Arrays.asList(cadena.split("")));
-									automata.getEntradaAutomata().setCadena(vectorCadena);
+									automata.reiniciarElemCad(vectorCadena);
 									automata.ejecutar();
 						break;
 					case 2: 	System.out.print("Introducir la cadena de entrada: ");
 										sc = new Scanner(System.in);
 										cadena = sc.nextLine();
 										vectorCadena = new ArrayList<String>(Arrays.asList(cadena.split("")));
-										automata.getEntradaAutomata().setCadena(vectorCadena);
+										automata.reiniciarElemCad(vectorCadena);
 										automata.ejecutar();
 						break;
 					case 3:		System.out.println("Introducir nuevo fichero");
@@ -94,7 +93,7 @@ public class Main {
 											System.out.println("El fichero \"" + ficheroCadena + "\" no existe");
 											System.out.println();
 										}
-										// automata.actualizar();
+										automata.actualizarAutomata(ficheroCadena, vectorCadena);
 						break;
 					case 4:	System.out.println("Saliendo...");
 									System.exit(0);
@@ -103,19 +102,6 @@ public class Main {
 						break;
 				}
 			}
-		
-		
-		
-		
-		/*
-		 * Forma de pasar de un String a un ArrayList<String>
-		 * 
-		 * String prueba = "aabb";
-		ArrayList<String> array = new ArrayList<String>(Arrays.asList(prueba.split("")));
-		
-		for(int i = 0; i < array.size(); i++){
-			System.out.println(array.get(i));
-		}*/
 	}
 
 

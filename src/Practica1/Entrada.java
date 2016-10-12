@@ -27,6 +27,9 @@ public class Entrada {
 		comprobarCadena();
 	}
 	
+	/**
+	 * Método que elimina el primer elemento de la cadena
+	 */
 	public void elimElem(){
 		if(!getCadena().isEmpty())
 			getCadena().remove(0);
@@ -68,6 +71,15 @@ public class Entrada {
 		System.exit(0); 	// probar a pedir otra cadena;
 	}
 	
+	/**
+	 * Método que reinicia la cadena de entrada
+	 * @param cad
+	 */
+	public void reiniciarCadena(ArrayList<String> cad){
+		setCadena(cad);
+		setCadenaAceptada(false);
+	}
+	
 	/*
 	 * ---------------------------------------Getters y Setters-------------------------------------
 	 */
@@ -100,7 +112,5 @@ public class Entrada {
 	public String getVACIO() {
 		return VACIO;
 	}
-	
-	
 
 }

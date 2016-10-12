@@ -47,10 +47,6 @@ public class Pila {
 		}
 		return false;
 	}
-
-	public Stack<String> getPila() {
-		return pila;
-	}
 	
 	/**
 	 * Método que insertara un elemento en la pila si este pertenece al alfabeto de la pila
@@ -90,10 +86,24 @@ public class Pila {
 		}
 			
 	}
+	
+	/**
+	 * Método para reiniciar la pila para una determinada cadena
+	 */
+	public void iniciarPila(){
+		Stack<String> aux = new Stack<String>();
+		aux.push(getSimboloInicial());
+		setPila(aux);
+	}
 
 	/*
 	 * ---------------------------------------Getters y Setters-------------------------------------
 	 */
+	
+	public Stack<String> getPila() {
+		return pila;
+	}
+	
 	public void setPila(Stack<String> pila) {
 		this.pila = pila;
 	}

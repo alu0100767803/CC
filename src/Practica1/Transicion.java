@@ -6,8 +6,11 @@ package Practica1;
 import java.util.ArrayList;
 
 /**
- * @author Jorge
- *
+ * @author Jorge Alonso Hernandez
+ * E-mail: alu0100767803@ull.edu.es
+ * Fecha: 28/09/16
+ * Asignatura: Complejidad Computacional
+ * Comentario: Clase que alberga una transicion de un determinado estado
  */
 public class Transicion {
 	
@@ -23,8 +26,9 @@ public class Transicion {
 		this.intrPila = intrPila;
 	}
 
-	//---------------------------------------Getter y Setters---------------------------------------
-	
+	/*
+	 * ---------------------------------------Getters y Setters-------------------------------------
+	 */
 
 	public String getElemPila() {
 		return elemPila;
@@ -57,6 +61,5 @@ public class Transicion {
 	public void setIntrPila(ArrayList<String> intrPila) {
 		this.intrPila = intrPila;
 	}
-	
 	
 }

@@ -20,14 +20,12 @@ import java.util.StringTokenizer;
  */
 public class Automata {
 
-	private ArrayList<String> nodos;																					// Vector que contiene todos los nodos del autómata de pila
-	private String estadoInicial;																							// Variable que contiene el estado inicial del autómata de pila
-	private ArrayList<String> estadosAceptacion;															// Vector con los estados de aceptación del autómata de pila
-	//private ArrayList<ArrayList<ArrayList<Transicion>>> matrizTransiciones; 	// Matriz con las trancisiones de los nodos
-	private ArrayList<ArrayList<Transicion>> matrizTransiciones;
-	
-	private Entrada entradaAutomata;
-	private Pila pilaAutomata;
+	private ArrayList<String> nodos;															// Vector que contiene todos los nodos del autómata de pila
+	private String estadoInicial;																	// Variable que contiene el estado inicial del autómata de pila
+	private ArrayList<String> estadosAceptacion;									// Vector con los estados de aceptación del autómata de pila
+	private ArrayList<ArrayList<Transicion>> matrizTransiciones;	// Matriz con las trancisiones de los nodos	
+	private Entrada entradaAutomata;															// Variable que contiene todos los elementos de la cadena de entrada
+	private Pila pilaAutomata;																		// Variable que contiene todos los elementos de la pila del automata									
 	
 	public Automata(String ficheroLeido, ArrayList<String> cadena) throws FileNotFoundException{	
 		
@@ -49,14 +47,12 @@ public class Automata {
 		String cad ;
 		boolean comentario = true;
 		String token = null;
-		//
 		
 		// Variables para crear componentes del automata de pila
 		ArrayList<String> alfabeto = null;
 		ArrayList<String> alfabetoPila = null;
 		String inicialPila = null;
 		ArrayList<String> vectorCadena = cadena;
-		///
 			
 		// Ignorar los comentarios iniciales
 		while(lector.hasNextLine() && comentario){
@@ -68,34 +64,30 @@ public class Automata {
 			else
 				comentario = false;
 		}
-		//
 		
 		// lectura de los componentes del automata
-		nodos = new ArrayList<String>();
-		nodos.add(token);
+		setNodos(new ArrayList<String>());
+		getNodos().add(token);
 		while(st.hasMoreTokens()){
 			token = st.nextToken();
-			nodos.add(token);
+			getNodos().add(token);
 		}
 		
 		cad = lector.nextLine();
 		alfabeto = leerVector(cad);
 		cad = lector.nextLine();
 		alfabetoPila = leerVector(cad);
-		estadoInicial = lector.nextLine();
+		setEstadoInicial(lector.nextLine());
 		inicialPila = lector.nextLine();
 		cad = lector.nextLine();
-		estadosAceptacion = leerVector(cad);
-		//
-		
+		setEstadosAceptacion(leerVector(cad));	
 		
 		// inicio de componentes
-		entradaAutomata = new Entrada(vectorCadena, alfabeto);
-		pilaAutomata = new Pila(alfabetoPila, inicialPila);
-		//
+		setEntradaAutomata(new Entrada(vectorCadena, alfabeto));
+		setPilaAutomata(new Pila(alfabetoPila, inicialPila));
 		
 		// lectura de las transiciones
-		matrizTransiciones = new ArrayList<ArrayList<Transicion>>();
+		setMatrizTransiciones(new ArrayList<ArrayList<Transicion>>());
 		while(lector.hasNextLine()){
 			cad = lector.nextLine();
 			ArrayList<String> aux = leerVector(cad);
@@ -218,11 +210,9 @@ public class Automata {
 		String estadoActual = getEstadoInicial();
 		ArrayList<Transicion> transicionesPosibles = null;
 		EstadoAutomata estAutomata;
-		int nodosAEliminar = 0;
-		
+		int nodosAEliminar = 0;	
 		boolean bucle = true;
 		
-		/////bucle
 		while(bucle){
 				transicionesPosibles = buscarTransiciones(estadoActual, obtenerElemCadena(), obtenerTopPila(), nodosAEliminar);
 				System.out.print(" Estado: " + estadoActual);
@@ -230,7 +220,7 @@ public class Automata {
 				System.out.print(" Elem pila: " + obtenerTopPila());
 				System.out.print(" Transiciones posibles: " + transicionesPosibles.size());
 				System.out.println();
-				//System.out.println("numero de transiciones posibles: " + transicionesPosibles.size());
+				
 				if(transicionesPosibles.isEmpty()){
 						if(getEntradaAutomata().getCadena().isEmpty()  && isAceptacion(estadoActual)){
 							getEntradaAutomata().setCadenaAceptada(true);
@@ -260,7 +250,6 @@ public class Automata {
 						}
 					
 				}
-				//else if(pilaEjecucion.pilaVacia()){System.out.println(x);}
 				
 				else if(transicionesPosibles.size() > 1){
 					estAutomata = new EstadoAutomata(estadoActual, getPilaAutomata().getPila(), getEntradaAutomata().getCadena(), transicionesPosibles);
@@ -276,27 +265,6 @@ public class Automata {
 						if(!transicionesPosibles.get(0).getIntrPila().get(i).equals(getPilaAutomata().getVACIO()))
 							getPilaAutomata().insertarElemento(transicionesPosibles.get(0).getIntrPila().get(i));
 					}
-				//transitar
-				/*System.out.print("Numero de transiciones posibles: " + transicionesPosibles.size());
-				estadoActual = transicionesPosibles.get(0).getNodo();
-				if(!getEntradaAutomata().getCadena().isEmpty())
-					getEntradaAutomata().elimElem();
-				if(!getPilaAutomata().getAlfabetoPila().isEmpty())
-					getPilaAutomata().eliminalElemento();
-				for(int i = transicionesPosibles.get(0).getIntrPila().size() - 1; i >= 0; i--){
-					if(!transicionesPosibles.get(0).getIntrPila().get(i).equals(getPilaAutomata().getVACIO()))
-						getPilaAutomata().insertarElemento(transicionesPosibles.get(0).getIntrPila().get(i));
-				}
-				
-				if(!getEntradaAutomata().getCadena().get(0).equals(getEntradaAutomata().getVACIO()))
-					getEntradaAutomata().elimElem();
-				if(!getPilaAutomata().obtenerTop().equals(getPilaAutomata().getVACIO()))
-					getPilaAutomata().eliminalElemento();
-				for(int i = transicionesPosibles.get(0).getIntrPila().size() - 1; i >= 0; i--){
-					if(!transicionesPosibles.get(0).getIntrPila().get(i).equals(getPilaAutomata().getVACIO()))
-						getPilaAutomata().insertarElemento(transicionesPosibles.get(0).getIntrPila().get(i));
-				}
-				*/
 			}
 			
 			else if(transicionesPosibles.size() == 1){
@@ -311,19 +279,15 @@ public class Automata {
 				}
 				nodosAEliminar = 0;
 			}
-			
-			/*else{
-				System.out.println("Fallo aqui");
-				EstadoAutomata aux = pilaEjecucion.obtenerTop();
-				estadoActual = aux.getEstadoActual();
-				getPilaAutomata().setPila(aux.getEstadoPila());
-				nodosAEliminar = aux.getNodosAEliminar();	
-			}
-			*/
 		}
 		
 	}
 	
+	/**
+	 * Método que devuelve si el estado es un estado de aceptacion
+	 * @param nodo
+	 * @return
+	 */
 	public boolean isAceptacion(String nodo){
 		for(int i = 0; i < getEstadosAceptacion().size(); i++)
 			if(nodo.equals(getEstadosAceptacion().get(i)))
@@ -331,10 +295,18 @@ public class Automata {
 		return false;
 	}
 	
+	/**
+	 * Método que devuelve el top de la pila del automata
+	 * @return
+	 */
 	public String obtenerTopPila(){
 		return getPilaAutomata().obtenerTop();
 	}
 	
+	/**
+	 * Método que devuelve el primer elemento de la cadena de entrada
+	 * @return
+	 */
 	public String obtenerElemCadena(){
 		if(getEntradaAutomata().getCadena().isEmpty())
 			return "";
@@ -342,6 +314,14 @@ public class Automata {
 			return getEntradaAutomata().getCadena().get(0);
 	}
 	
+	/**
+	 * Método que devuelve las transiciones posibles de ese nodo con el elemento de la cadena y de la pil actual
+	 * @param estado
+	 * @param elemCad
+	 * @param elemPila
+	 * @param eliminar
+	 * @return
+	 */
 	public ArrayList<Transicion> buscarTransiciones(String estado, String elemCad, String elemPila, int eliminar){
 		ArrayList<Transicion> aux = new ArrayList<Transicion>();
 		Transicion transicion = null;
@@ -352,7 +332,8 @@ public class Automata {
 				//System.out.println("Entro");
 				for(int i = 0; i < getMatrizTransiciones().get(nodo).size(); i++){
 					if(getMatrizTransiciones().get(nodo).get(i).getElemCadena().equals(getEntradaAutomata().getVACIO()) 
-							&& getMatrizTransiciones().get(nodo).get(i).getElemPila().equals(elemPila)){
+							&& (getMatrizTransiciones().get(nodo).get(i).getElemPila().equals(elemPila)) 
+								|| getMatrizTransiciones().get(nodo).get(i).getElemPila().equals(getPilaAutomata().getVACIO())){
 						transicion = getMatrizTransiciones().get(nodo).get(i);
 							//System.out.println("Entro cadena vacia");
 							aux.add(transicion);
@@ -361,33 +342,52 @@ public class Automata {
 				}
 			}
 			else{
+				
 				for(int i = 0; i < getMatrizTransiciones().get(nodo).size(); i++){
 					if(getMatrizTransiciones().get(nodo).get(i).getElemCadena().equals(elemCad) 
-							&& getMatrizTransiciones().get(nodo).get(i).getElemPila().equals(elemPila)){
+							&& (getMatrizTransiciones().get(nodo).get(i).getElemPila().equals(elemPila) 
+									|| getMatrizTransiciones().get(nodo).get(i).getElemPila().equals(getPilaAutomata().getVACIO()))){
 						transicion = getMatrizTransiciones().get(nodo).get(i); 
 						aux.add(transicion);
 					
 					}
 					if(getMatrizTransiciones().get(nodo).get(i).getElemCadena().equals(getEntradaAutomata().getVACIO()) 
-							&& getMatrizTransiciones().get(nodo).get(i).getElemPila().equals(elemPila)){
+							&& (getMatrizTransiciones().get(nodo).get(i).getElemPila().equals(elemPila))
+								|| getMatrizTransiciones().get(nodo).get(i).getElemPila().equals(getPilaAutomata().getVACIO())){
 						transicion = getMatrizTransiciones().get(nodo).get(i); 
 						aux.add(transicion);
 					}
 				}
 			}
-		/*for(int i = 0; i < elim; i++)
-			if(aux.size() > 0)
-				aux.remove(0);*/
 		}
 		for(int i = 0; i < eliminar; i++)
 			aux.remove(0);
 		return aux;
 	}
 	
-
+	/**
+	 * Método que reinicia la cadena de entrada y la pila para probar una nueva cadena
+	 * @param cadena
+	 */
+	public void reiniciarElemCad(ArrayList<String> cadena){
+		getEntradaAutomata().reiniciarCadena(cadena);
+		getPilaAutomata().iniciarPila();
+	}
+	
+	/**
+	 * Método que cambia el automata de pila actual por otro nuevo
+	 * @param ficheroLeido
+	 * @param cadena
+	 * @throws FileNotFoundException
+	 */
+	public void actualizarAutomata(String ficheroLeido, ArrayList<String> cadena) throws FileNotFoundException{
+		lecturaFichero(ficheroLeido, cadena);
+	}
 	
 
-	//--------------------------------------Getters y Setters---------------------------------------
+	/*
+	 * --------------------------------------Getters y Setters---------------------------------------
+	 */
 
 	public ArrayList<String> getNodos() {
 		return nodos;
@@ -441,6 +441,5 @@ public class Automata {
 	public void setMatrizTransiciones(ArrayList<ArrayList<Transicion>> matrizTransiciones) {
 		this.matrizTransiciones = matrizTransiciones;
 	}
-
 	
 }
