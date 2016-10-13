@@ -28,7 +28,6 @@ public class PilaEjecucion {
 	 */
 	public void intrEstado(EstadoAutomata estAutomata) {
 		getPilaEjecucion().push(estAutomata);
-		
 	}
 	
 	/**

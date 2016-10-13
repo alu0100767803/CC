@@ -9,6 +9,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
+import java.util.Stack;
 import java.util.StringTokenizer;
 
 /**
@@ -220,7 +221,6 @@ public class Automata {
 				System.out.print(" Elem pila: " + obtenerTopPila());
 				System.out.print(" Transiciones posibles: " + transicionesPosibles.size());
 				System.out.println();
-				
 				if(transicionesPosibles.isEmpty()){
 						if(getEntradaAutomata().getCadena().isEmpty()  && isAceptacion(estadoActual)){
 							getEntradaAutomata().setCadenaAceptada(true);
@@ -228,15 +228,21 @@ public class Automata {
 								System.out.println("Cadena aceptada");
 								
 						}
-						else if(getEntradaAutomata().getCadena().isEmpty() && !isAceptacion(estadoActual)){
+						else if(getEntradaAutomata().getCadena().isEmpty() && !isAceptacion(estadoActual) && pilaEjecucion.pilaVacia()){
 							getEntradaAutomata().setCadenaAceptada(false);
 							bucle = false;
 							System.out.println("Cadena rechazada");
 						}
+						else if(!getEntradaAutomata().getCadena().isEmpty() && pilaEjecucion.pilaVacia()){
+							getEntradaAutomata().setCadenaAceptada(false);
+							bucle = false;
+							System.out.println("Cadena rechazada");
+						}
+					
 						else{
 							if(!pilaEjecucion.pilaVacia()){
-								System.out.println("Fallo aqui");
 								EstadoAutomata aux = pilaEjecucion.obtenerTop();
+								getEntradaAutomata().setCadena(aux.getEstadoCadena());
 								estadoActual = aux.getEstadoActual();
 								getPilaAutomata().setPila(aux.getEstadoPila());
 								nodosAEliminar = aux.getNodosAEliminar();
@@ -252,15 +258,18 @@ public class Automata {
 				}
 				
 				else if(transicionesPosibles.size() > 1){
-					estAutomata = new EstadoAutomata(estadoActual, getPilaAutomata().getPila(), getEntradaAutomata().getCadena(), transicionesPosibles);
+					ArrayList<String> cadena = igualarArray(getEntradaAutomata().getCadena());
+					Stack<String> pila = igualarPila(getPilaAutomata().getPila());
+					estAutomata = new EstadoAutomata(estadoActual, pila, cadena, transicionesPosibles);
 					estAutomata.setNodosAEliminar(nodosAEliminar + 1);
 					pilaEjecucion.intrEstado(estAutomata);
-					System.out.println("Estoy trabado aqui");
 					estadoActual = transicionesPosibles.get(0).getNodo();
-					if(!getEntradaAutomata().getCadena().isEmpty())
+					if(!getEntradaAutomata().getCadena().isEmpty() 
+							&& !(transicionesPosibles.get(0).getElemCadena().equals(getEntradaAutomata().getVACIO())))
 						getEntradaAutomata().elimElem();
-					if(!getPilaAutomata().getAlfabetoPila().isEmpty())
-						getPilaAutomata().eliminalElemento();
+					if(!getPilaAutomata().getPila().isEmpty() 
+							&& !(transicionesPosibles.get(0).getElemPila().equals(getPilaAutomata().getVACIO())))
+						getPilaAutomata().eliminarElemento();
 					for(int i = transicionesPosibles.get(0).getIntrPila().size() - 1; i >= 0; i--){
 						if(!transicionesPosibles.get(0).getIntrPila().get(i).equals(getPilaAutomata().getVACIO()))
 							getPilaAutomata().insertarElemento(transicionesPosibles.get(0).getIntrPila().get(i));
@@ -269,10 +278,12 @@ public class Automata {
 			
 			else if(transicionesPosibles.size() == 1){
 				estadoActual = transicionesPosibles.get(0).getNodo();
-				if(!getEntradaAutomata().getCadena().isEmpty())
+				if(!getEntradaAutomata().getCadena().isEmpty() 
+						&& !(transicionesPosibles.get(0).getElemCadena().equals(getEntradaAutomata().getVACIO())))
 					getEntradaAutomata().elimElem();
-				if(!getPilaAutomata().getAlfabetoPila().isEmpty())
-					getPilaAutomata().eliminalElemento();
+				if(!getPilaAutomata().getPila().isEmpty() 
+						&& !(transicionesPosibles.get(0).getElemPila().equals(getPilaAutomata().getVACIO())))
+					getPilaAutomata().eliminarElemento();
 				for(int i = transicionesPosibles.get(0).getIntrPila().size() - 1; i >= 0; i--){
 					if(!transicionesPosibles.get(0).getIntrPila().get(i).equals(getPilaAutomata().getVACIO()))
 						getPilaAutomata().insertarElemento(transicionesPosibles.get(0).getIntrPila().get(i));
@@ -329,16 +340,13 @@ public class Automata {
 		
 		if(getMatrizTransiciones().size() > nodo){
 			if(elemCad.isEmpty()){
-				//System.out.println("Entro");
 				for(int i = 0; i < getMatrizTransiciones().get(nodo).size(); i++){
 					if(getMatrizTransiciones().get(nodo).get(i).getElemCadena().equals(getEntradaAutomata().getVACIO()) 
 							&& (getMatrizTransiciones().get(nodo).get(i).getElemPila().equals(elemPila)) 
 								|| getMatrizTransiciones().get(nodo).get(i).getElemPila().equals(getPilaAutomata().getVACIO())){
 						transicion = getMatrizTransiciones().get(nodo).get(i);
-							//System.out.println("Entro cadena vacia");
 							aux.add(transicion);
 					}
-					//System.out.println("Aux: " + aux.size());
 				}
 			}
 			else{
@@ -351,7 +359,7 @@ public class Automata {
 						aux.add(transicion);
 					
 					}
-					if(getMatrizTransiciones().get(nodo).get(i).getElemCadena().equals(getEntradaAutomata().getVACIO()) 
+					else if(getMatrizTransiciones().get(nodo).get(i).getElemCadena().equals(getEntradaAutomata().getVACIO()) 
 							&& (getMatrizTransiciones().get(nodo).get(i).getElemPila().equals(elemPila))
 								|| getMatrizTransiciones().get(nodo).get(i).getElemPila().equals(getPilaAutomata().getVACIO())){
 						transicion = getMatrizTransiciones().get(nodo).get(i); 
@@ -384,6 +392,33 @@ public class Automata {
 		lecturaFichero(ficheroLeido, cadena);
 	}
 	
+	/**
+	 * Método que iguala dos vectores
+	 * @param vector
+	 * @return
+	 */
+	public ArrayList<String> igualarArray(ArrayList<String> vector){
+		ArrayList<String> aux = new ArrayList<String>();
+		for(int i = 0; i < vector.size(); i++){
+			String cad = vector.get(i);
+			aux.add(cad);
+		}
+		return aux;
+	}
+	
+	/**
+	 * Método que iguala dos pilas
+	 * @param pila
+	 * @return
+	 */
+	public Stack<String> igualarPila(Stack<String> pila){
+		Stack<String> aux = new Stack<String>();
+		for(int i = 0; i < pila.size(); i++){
+			String cad = pila.get(i);
+			aux.push(cad);
+		}
+		return aux;
+	}
 
 	/*
 	 * --------------------------------------Getters y Setters---------------------------------------

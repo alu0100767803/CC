@@ -28,7 +28,6 @@ public class EstadoAutomata {
 		estadoCadena = estCad;
 		transicionesPosibles = tranPosibles;
 		nodosAEliminar = 0;
-		
 	}
 	
 

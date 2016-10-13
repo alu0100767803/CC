@@ -59,7 +59,10 @@ public class Pila {
 			salirConError(elemento);
 	}
 	
-	public void eliminalElemento(){
+	/**
+	 * Método que elimina el último elemento de la pila
+	 */
+	public void eliminarElemento(){
 		getPila().pop();
 	}
 	
