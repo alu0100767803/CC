@@ -4,6 +4,7 @@
 package Practica2;
 
 import java.util.ArrayList;
+import java.util.StringTokenizer;
 
 /**
  * @author Jorge Alonso Hernandez
@@ -20,8 +21,27 @@ public class Maquina {
 	private ArrayList<Transicion> matrizTransiciones;	// Matriz con todas las transiciones de la máquina
 	private int cabezaLE;
 	
-	public Maquina(){
+	public Maquina(String ficheroLeido, ArrayList<String> cadena){
+		lecturaFichero(ficheroLeido, cadena);
+	}
+	
+	private void lecturaFichero(String ficheroLeido, ArrayList<String> cadena) {
 		
+		
+	}
+
+	/**
+	 * Método que lee una fila por fichero y devuelve un vector de String de la cadena
+	 * @param cadena
+	 * @return
+	 */
+	public ArrayList<String> leerVector(String cadena){
+		ArrayList<String> aux = new ArrayList<String>();
+		StringTokenizer st = new StringTokenizer(cadena, " ");
+		while (st.hasMoreTokens()) { 
+	 		 aux.add(st.nextToken()); 		
+			}
+		return aux;
 	}
 
 	/*
