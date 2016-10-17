@@ -42,12 +42,12 @@ public class Automata {
 	 */
 	public void lecturaFichero(String ficheroLeido, ArrayList<String> cadena) throws FileNotFoundException{
 		// variables para la lectura del fichero 
-		File fichero = new File(ficheroLeido);
-		Scanner lector = new Scanner(fichero);
-		StringTokenizer st = null;
-		String cad ;
-		boolean comentario = true;
-		String token = null;
+		File fichero = new File(ficheroLeido);			
+		Scanner lector = new Scanner(fichero);			
+		StringTokenizer st = null;								
+		String cad ;																
+		boolean comentario = true;									
+		String token = null;												
 		
 		// Variables para crear componentes del automata de pila
 		ArrayList<String> alfabeto = null;

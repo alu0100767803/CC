@@ -3,7 +3,10 @@
  */
 package Practica2;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.StringTokenizer;
 
 /**
@@ -21,12 +24,36 @@ public class Maquina {
 	private ArrayList<Transicion> matrizTransiciones;	// Matriz con todas las transiciones de la máquina
 	private int cabezaLE;
 	
-	public Maquina(String ficheroLeido, ArrayList<String> cadena){
+	public Maquina(String ficheroLeido, ArrayList<String> cadena) throws FileNotFoundException{
 		lecturaFichero(ficheroLeido, cadena);
 	}
 	
-	private void lecturaFichero(String ficheroLeido, ArrayList<String> cadena) {
+	private void lecturaFichero(String ficheroLeido, ArrayList<String> cadena) throws FileNotFoundException {
 		
+		// variables para la lectura del fichero 
+			File fichero = new File(ficheroLeido);
+			Scanner lector = new Scanner(fichero);
+			StringTokenizer st = null;
+			String cad = null;
+			boolean comentario = true;
+			String token = null;
+		
+		// Variables para ccomponer la cinta de la máquina
+		ArrayList<String> vectorCadena = cadena;
+		ArrayList<String> alfE = null;
+		ArrayList<String> alfC = null;
+		String blanco = null;
+		
+		// Ignorar los comentarios iniciales
+			while(lector.hasNextLine() && comentario){
+				cad = lector.nextLine();
+				st = new StringTokenizer(cad, " ");
+				token = st.nextToken();
+				if(token.equals("#"))
+					comentario = true;
+				else
+					comentario = false;
+			}
 		
 	}
 
