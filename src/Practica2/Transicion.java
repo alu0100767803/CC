@@ -4,15 +4,18 @@
 package Practica2;
 
 /**
- * @author Jorge
- *
+ * @author Jorge Alonso Hernandez
+ * E-mail: alu0100767803@ull.edu.es
+ * Fecha: 16/10/16
+ * Asignatura: Complejidad Computacional
+ * Comentario: Clase que alberga una transición de un estado
  */
 public class Transicion {
 
-	private String simboloCinta;
-	private String estadoDestino;
-	private String simboloNuevo;
-	private String desplazamiento;
+	private String simboloCinta;		// Símbolo de la cinta con el que se transita
+	private String estadoDestino;		// Estado destino de la transición
+	private String simboloNuevo;		// Símbolo nuevo que se intercambiará por el actual en la cinta
+	private String desplazamiento;	// Desplazamiento que se produce en la cinta
 	
 	public Transicion(String simbC, String estD, String simbN, String desp){
 		

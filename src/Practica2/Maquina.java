@@ -6,18 +6,19 @@ package Practica2;
 import java.util.ArrayList;
 
 /**
- * @author Jorge
- *
+ * @author Jorge Alonso Hernandez
+ * E-mail: alu0100767803@ull.edu.es
+ * Fecha: 16/10/16
+ * Asignatura: Complejidad Computacional
+ * Comentario: Clase que simulará la máquina de Turing
  */
 public class Maquina {
 	
-	private final String DERECHA = "R";
-	private final String IZQUIERDA = "L";
-	private final String PARADA = "S";
-	
-	private ArrayList<String> estados;
-	private String estadoInicial;
-	private ArrayList<String> estadosFinales;  
+	private ArrayList<String> estados;								// Estados de la máquina
+	private String estadoInicial;											// Estado inicial de la máquina
+	private ArrayList<String> estadosFinales; 				// Estados finales de la máquina
+	private ArrayList<Transicion> matrizTransiciones;	// Matriz con todas las transiciones de la máquina
+	private int cabezaLE;
 	
 	public Maquina(){
 		
@@ -50,18 +51,5 @@ public class Maquina {
 	public void setEstadosFinales(ArrayList<String> estadosFinales) {
 		this.estadosFinales = estadosFinales;
 	}
-
-	public String getDERECHA() {
-		return DERECHA;
-	}
-
-	public String getIZQUIERDA() {
-		return IZQUIERDA;
-	}
-
-	public String getPARADA() {
-		return PARADA;
-	}
-	
 
 }
