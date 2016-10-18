@@ -54,6 +54,24 @@ public class Maquina {
 				else
 					comentario = false;
 			}
+			
+		// lectura de los componentes de la maquina
+			setEstados(new ArrayList<String>());
+			getEstados().add(token);
+			while(st.hasMoreTokens()){
+				token = st.nextToken();
+				getEstados().add(token);
+			}
+			
+			cad = lector.nextLine();
+			alfE = leerVector(cad);
+			cad = lector.nextLine();
+			alfC = leerVector(cad);
+			cad = lector.nextLine();
+			setEstadoInicial(cad);
+			blanco = lector.nextLine();
+			cad = lector.nextLine();
+			setEstadosFinales(leerVector(cad));
 		
 	}
 
