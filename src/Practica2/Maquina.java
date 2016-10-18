@@ -18,14 +18,17 @@ import java.util.StringTokenizer;
  */
 public class Maquina {
 	
+	private Cinta cinta;
 	private ArrayList<String> estados;								// Estados de la máquina
 	private String estadoInicial;											// Estado inicial de la máquina
 	private ArrayList<String> estadosFinales; 				// Estados finales de la máquina
-	private ArrayList<Transicion> matrizTransiciones;	// Matriz con todas las transiciones de la máquina
+	private ArrayList<ArrayList<Transicion>> matrizTransiciones;	// Matriz con todas las transiciones de la máquina
 	private int cabezaLE;
 	
 	public Maquina(String ficheroLeido, ArrayList<String> cadena) throws FileNotFoundException{
 		lecturaFichero(ficheroLeido, cadena);
+		mostrarComponentes();
+		mostrarTransiciones();
 	}
 	
 	private void lecturaFichero(String ficheroLeido, ArrayList<String> cadena) throws FileNotFoundException {
@@ -72,7 +75,59 @@ public class Maquina {
 			blanco = lector.nextLine();
 			cad = lector.nextLine();
 			setEstadosFinales(leerVector(cad));
+			
+			// iniciar componentes
+			setCinta(new Cinta(cadena, alfE, alfC, blanco));
+			
+		// lectura de las transiciones
+			setMatrizTransiciones(new ArrayList<ArrayList<Transicion>>());
+			while(lector.hasNextLine()){
+				cad = lector.nextLine();
+				ArrayList<String> aux = leerVector(cad);
+				anyadirTransicion(aux);
+			}
+	}
+	
+	/**
+	 * Método parañadir una nueva transición
+	 * @param aux
+	 */
+	public void anyadirTransicion(ArrayList<String> aux){
+		int nodo = obtenerIndiceEstado(aux.get(0));
+		String simbC = aux.get(1);
+		String estDestino = aux.get(2);
+		String simbNuevo = aux.get(3);
+		String desp = aux.get(4);
 		
+		Transicion transicion = new Transicion(simbC, estDestino, simbNuevo, desp);
+		
+		if(getMatrizTransiciones().isEmpty()){
+			ArrayList<Transicion> auxiliar = new ArrayList<Transicion>();
+			auxiliar.add(transicion);
+			getMatrizTransiciones().add(auxiliar);
+		}
+		
+		else if(nodo >= getMatrizTransiciones().size()){
+			ArrayList<Transicion> auxiliar = new ArrayList<Transicion>();
+			auxiliar.add(transicion);
+			getMatrizTransiciones().add(auxiliar);
+		}
+		else
+			getMatrizTransiciones().get(nodo).add(transicion);
+	}
+	
+	/**
+	 * Método que devuelve el índice del nodo 
+	 * @param nodo
+	 * @return
+	 */
+	public int obtenerIndiceEstado(String nodo){
+		for(int i = 0; i < getEstados().size(); i++)
+			if(getEstados().get(i).equals(nodo))
+				return i;
+		System.out.println("No existe transicion");
+		System.exit(0);
+		return -1;
 	}
 
 	/**
@@ -87,6 +142,45 @@ public class Maquina {
 	 		 aux.add(st.nextToken()); 		
 			}
 		return aux;
+	}
+	
+	/**
+	 * Método que muestra los componentes de la máquina
+	 */
+	public void mostrarComponentes(){
+		System.out.println("Estados: " + getEstados());
+		System.out.println("Alfabeto de entrada: " + getCinta().getAlfabetoEntrada());
+		System.out.println("Alfabeto de la cinta: " + getCinta().getAlfabetoCinta());
+		System.out.println("Estado incial: " + getEstadoInicial());
+		System.out.println("Símbolo blanco: " + getCinta().getSimboloBlanco());
+		System.out.println("Estados finales: " + getEstadosFinales());
+	}
+	
+	/**
+	 * Método que muestra por pantalla todas las transiciones del autómata
+	 */
+	public void mostrarTransiciones(){
+		for(int i = 0; i < getMatrizTransiciones().size(); i++){
+			for(int j = 0; j < getMatrizTransiciones().get(i).size();j++){
+				System.out.print("Desde el estado " + getEstados().get(i));
+				System.out.print(" con el simbolo " + obtenerTransicion(i, j).getSimboloCinta() + " en la cinta");
+				System.out.print(" me desplazo hasta el estado " + obtenerTransicion(i, j).getEstadoDestino());
+				System.out.print(" y se escribe en la cinta " + obtenerTransicion(i, j).getSimboloNuevo());
+				System.out.print(" y desplazamiento de la cinta: " + obtenerTransicion(i, j).getDesplazamiento());
+				
+				System.out.println();
+			}
+		}
+	}
+	
+	/**
+	 * Método que devuelve una transicion
+	 * @param i
+	 * @param j
+	 * @return
+	 */
+	public Transicion obtenerTransicion(int i, int j){
+		return getMatrizTransiciones().get(i).get(j);
 	}
 
 	/*
@@ -116,5 +210,32 @@ public class Maquina {
 	public void setEstadosFinales(ArrayList<String> estadosFinales) {
 		this.estadosFinales = estadosFinales;
 	}
+
+	public Cinta getCinta() {
+		return cinta;
+	}
+
+	public void setCinta(Cinta cinta) {
+		this.cinta = cinta;
+	}
+
+
+	public ArrayList<ArrayList<Transicion>> getMatrizTransiciones() {
+		return matrizTransiciones;
+	}
+
+	public void setMatrizTransiciones(ArrayList<ArrayList<Transicion>> matrizTransiciones) {
+		this.matrizTransiciones = matrizTransiciones;
+	}
+
+	public int getCabezaLE() {
+		return cabezaLE;
+	}
+
+	public void setCabezaLE(int cabezaLE) {
+		this.cabezaLE = cabezaLE;
+	}
+	
+	
 
 }
