@@ -72,6 +72,15 @@ public class Cinta {
 	public void anyadirBlancoInicio(){
 		getCadena().add(0, getSimboloBlanco());
 	}
+	
+	public void mostrarCadena(){
+		for(int i = 0; i < getCadena().size(); i++)
+			System.out.print(getCadena().get(i));
+		System.out.println();
+		for(int i = 0; i < getCabezaLE(); i++)
+			System.out.print(" ");
+		System.out.println("^");
+	}
 
 	/*
 	 * ----------------------------------Getters y Setters-------------------------------------------------
@@ -81,6 +90,8 @@ public class Cinta {
 	}
 
 	public void setCadena(ArrayList<String> cadena) {
+		cadena.add(0, getSimboloBlanco());
+		cadena.add(getSimboloBlanco());
 		this.cadena = cadena;
 	}
 

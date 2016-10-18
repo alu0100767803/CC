@@ -203,7 +203,7 @@ public class Maquina {
 	}
 	
 	public void ejecutar(){
-		
+		getCinta().mostrarCadena();
 	}
 	
 	public void actualizarAutomata(String ficheroLeido, ArrayList<String> cadena) throws FileNotFoundException{
