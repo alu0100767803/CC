@@ -63,32 +63,32 @@ public class Main {
 				opcion = sc.nextInt();
 				System.out.println();
 				switch(opcion){
-					case 1: while(!existeFichero){
-										System.out.print("Introducir fichero con la cadena: ");
-										sc = new Scanner(System.in);
-										ficheroCadena = sc.nextLine();
-										System.out.println();
-										fich = new File(ficheroCadena);
-										if(fich.exists())
-											existeFichero = true;
-										else{
-											System.out.println("El fichero \"" + ficheroCadena + "\" no existe");
+					case 1: 	while(!existeFichero){
+											System.out.print("Introducir fichero con la cadena: ");
+											sc = new Scanner(System.in);
+											ficheroCadena = sc.nextLine();
 											System.out.println();
+											fich = new File(ficheroCadena);
+											if(fich.exists())
+												existeFichero = true;
+											else{
+												System.out.println("El fichero \"" + ficheroCadena + "\" no existe");
+												System.out.println();
+											}
 										}
-									}
-									Scanner scan = new Scanner(fich);
-									cadena = scan.nextLine();
-									vectorCadena = new ArrayList<String>(Arrays.asList(cadena.split("")));
-									//automata.reiniciarElemCad(vectorCadena);
-									//automata.ejecutar();
+										Scanner scan = new Scanner(fich);
+										cadena = scan.nextLine();
+										vectorCadena = new ArrayList<String>(Arrays.asList(cadena.split("")));
+										maquina.reiniciarCinta(vectorCadena);
+										maquina.ejecutar();
 						break;
 					case 2: 	System.out.print("Introducir la cadena de entrada: ");
 										sc = new Scanner(System.in);
 										cadena = sc.nextLine();
 										System.out.println();
 										vectorCadena = new ArrayList<String>(Arrays.asList(cadena.split("")));
-										//automata.reiniciarElemCad(vectorCadena);
-										//automata.ejecutar();
+										maquina.reiniciarCinta(vectorCadena);
+										maquina.ejecutar();
 						break;
 					case 3:		System.out.print("Introducir nuevo fichero: ");
 										sc = new Scanner(System.in);
@@ -101,7 +101,7 @@ public class Main {
 											System.out.println("El fichero \"" + ficheroCadena + "\" no existe");
 											System.out.println();
 										}
-										//automata.actualizarAutomata(ficheroCadena, vectorCadena);
+										maquina.actualizarAutomata(ficheroCadena, vectorCadena);
 						break;
 					case 4:	System.out.println("Saliendo...");
 									System.exit(0);
@@ -110,20 +110,6 @@ public class Main {
 						break;
 				}
 			}
-		
-		/*ArrayList<String> prueba = new ArrayList<String>();
-
-		prueba.add("a");
-		prueba.add("b");
-		prueba.add("c");
-		prueba.add("d");
-		System.out.println("Vector: " + prueba);
-		System.out.println("Añadiendo...");
-		prueba.add(0, "z");
-		System.out.println("Vector: " + prueba);
-		System.out.println("Añadiendo...");
-		prueba.add(0, "y");
-		System.out.println("Vector: " + prueba);*/
 		
 		
 	}

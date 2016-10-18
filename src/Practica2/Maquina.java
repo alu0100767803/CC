@@ -182,6 +182,33 @@ public class Maquina {
 	public Transicion obtenerTransicion(int i, int j){
 		return getMatrizTransiciones().get(i).get(j);
 	}
+	
+	
+	public void reiniciarCinta(ArrayList<String> cadena){
+		getCinta().reiniciarCadena(cadena);
+	}
+	
+	/**
+	 * Método que iguala dos vectores
+	 * @param vector
+	 * @return
+	 */
+	public ArrayList<String> igualarArray(ArrayList<String> vector){
+		ArrayList<String> aux = new ArrayList<String>();
+		for(int i = 0; i < vector.size(); i++){
+			String cad = vector.get(i);
+			aux.add(cad);
+		}
+		return aux;
+	}
+	
+	public void ejecutar(){
+		
+	}
+	
+	public void actualizarAutomata(String ficheroLeido, ArrayList<String> cadena) throws FileNotFoundException{
+		lecturaFichero(ficheroLeido, cadena);
+	}
 
 	/*
 	 * ---------------------------------Getters y Setters------------------------------------------

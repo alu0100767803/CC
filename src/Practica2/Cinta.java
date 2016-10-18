@@ -23,6 +23,7 @@ public class Cinta {
 	private ArrayList<String> alfabetoCinta;
 	private String simboloBlanco;
 	private int cabezaLE;
+	private boolean cadenaAceptada;
 	
 	public Cinta(ArrayList<String> cad, ArrayList<String> alfE, ArrayList<String> alfC, String blanco){
 		cadena = cad;
@@ -30,10 +31,15 @@ public class Cinta {
 		alfabetoCinta = alfC;
 		simboloBlanco = blanco;
 		cabezaLE = 1;
+		cadenaAceptada = false;
 		
 		anyadirBlancoInicio();
 		anyadirBlancoFin();
 		
+	}
+	
+	public void reiniciarCadena(ArrayList<String> aux){
+		setCadena(aux);
 	}
 	
 	/**
@@ -68,7 +74,7 @@ public class Cinta {
 	}
 
 	/*
-	 * ----------------------------------Getters y Setters-----------------------------------------
+	 * ----------------------------------Getters y Setters-------------------------------------------------
 	 */
 	public ArrayList<String> getCadena() {
 		return cadena;
@@ -120,6 +126,14 @@ public class Cinta {
 
 	public String getPARADA() {
 		return PARADA;
+	}
+
+	public boolean isCadenaAceptada() {
+		return cadenaAceptada;
+	}
+
+	public void setCadenaAceptada(boolean cadenaAceptada) {
+		this.cadenaAceptada = cadenaAceptada;
 	}
 	
 	
