@@ -188,22 +188,57 @@ public class Maquina {
 		getCinta().reiniciarCadena(cadena);
 	}
 	
-	/**
-	 * Método que iguala dos vectores
-	 * @param vector
-	 * @return
-	 */
-	public ArrayList<String> igualarArray(ArrayList<String> vector){
-		ArrayList<String> aux = new ArrayList<String>();
-		for(int i = 0; i < vector.size(); i++){
-			String cad = vector.get(i);
-			aux.add(cad);
-		}
-		return aux;
-	}
 	
 	public void ejecutar(){
-		getCinta().mostrarCadena();
+		boolean bucle = true;
+		String estadoActual = getEstadoInicial();
+		int indiceEstado;
+		Transicion transicion = null;
+		
+		while(bucle){
+			System.out.println("Estado: " + estadoActual);
+			getCinta().mostrarCadena();
+			
+			indiceEstado = obtenerIndiceEstado(estadoActual);
+				if(indiceEstado < getMatrizTransiciones().size()){
+				transicion = obtenerTransicion(indiceEstado, getCinta().obtenerElemCad());
+				if(transicion != null){
+					estadoActual = transicion.getEstadoDestino();
+					getCinta().cambiarSimbolo(transicion.getSimboloNuevo());
+					getCinta().desplazamientoCinta(transicion.getDesplazamiento());
+				}
+				else 
+					bucle = false;
+			}
+				else
+					bucle = false;
+		}
+		
+		if(isAceptacion(estadoActual)){
+			System.out.println("Cadena aceptada por la máquina");
+		}
+		else{
+			System.out.println("Cadena rechazada por la máquina");
+		}
+			
+	}
+	
+	public Transicion obtenerTransicion(int estado, String elemCad){
+		Transicion transicion = null;
+		for(int i = 0; i < getMatrizTransiciones().get(estado).size(); i++){
+			if(obtenerTransicion(estado, i).getSimboloCinta().equals(elemCad))
+				transicion = obtenerTransicion(estado, i);
+		}
+		
+		return transicion;
+	}
+	
+	public boolean isAceptacion(String estado){
+		for(int i = 0; i < getEstadosFinales().size(); i++)
+			if(estado.equals(getEstadosFinales().get(i)))
+				return true;
+		return false;
+				
 	}
 	
 	public void actualizarAutomata(String ficheroLeido, ArrayList<String> cadena) throws FileNotFoundException{

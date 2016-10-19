@@ -39,7 +39,22 @@ public class Cinta {
 	}
 	
 	public void reiniciarCadena(ArrayList<String> aux){
-		setCadena(aux);
+		setCadena(igualarArray(aux));
+		setCabezaLE(1);
+	}
+	
+	/**
+	 * Método que iguala dos vectores
+	 * @param vector
+	 * @return
+	 */
+	public ArrayList<String> igualarArray(ArrayList<String> vector){
+		ArrayList<String> aux = new ArrayList<String>();
+		for(int i = 0; i < vector.size(); i++){
+			String cad = vector.get(i);
+			aux.add(cad);
+		}
+		return aux;
 	}
 	
 	/**
@@ -47,10 +62,19 @@ public class Cinta {
 	 * @param desp
 	 */
 	public void desplazamientoCinta(String desp){
-		if(desp.equals(getDERECHA()))
+		if(desp.equals(getDERECHA())){
+			if(getCabezaLE() == getCadena().size() - 1)
+				anyadirBlancoFin();
 			setCabezaLE(getCabezaLE() + 1);
-		else if(desp.equals(getIZQUIERDA()))
-			setCabezaLE(getCabezaLE() - 1);
+		}
+		else if(desp.equals(getIZQUIERDA())) {
+			if(getCabezaLE() == 0){
+				anyadirBlancoInicio();
+				setCabezaLE(0);
+			}
+			else
+				setCabezaLE(getCabezaLE() - 1);
+		}
 		else if(desp.equals(getPARADA()))
 			setCabezaLE(getCabezaLE());
 		else{
@@ -80,6 +104,14 @@ public class Cinta {
 		for(int i = 0; i < getCabezaLE(); i++)
 			System.out.print(" ");
 		System.out.println("^");
+	}
+	
+	public String obtenerElemCad(){
+		return getCadena().get(getCabezaLE());
+	}
+	
+	public void cambiarSimbolo(String simboloNuevo){
+		getCadena().set(getCabezaLE(), simboloNuevo);
 	}
 
 	/*
