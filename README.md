@@ -16,3 +16,4 @@ Universidad de La Laguna, Escuela Superior de Ingeniería y Tecnología, 4º, It
 ## Prácticas
 * Práctica 1: Simulador de un autómata de pila
 * Práctica 2: Simulador de una máquina de Turing
+* Práctica 3: Implementación de Funciones Primitivas Recursivas

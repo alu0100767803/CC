@@ -26,7 +26,10 @@ public class Cinta {
 	private boolean cadenaAceptada;
 	
 	public Cinta(ArrayList<String> cad, ArrayList<String> alfE, ArrayList<String> alfC, String blanco){
-		cadena = cad;
+		if(!cad.isEmpty())
+			cadena = cad;
+		else
+			cadena = new ArrayList<String>();
 		alfabetoEntrada = alfE;
 		alfabetoCinta = alfC;
 		simboloBlanco = blanco;
@@ -39,7 +42,10 @@ public class Cinta {
 	}
 	
 	public void reiniciarCadena(ArrayList<String> aux){
-		setCadena(igualarArray(aux));
+		if(!aux.get(0).equals(""))
+			setCadena(igualarArray(aux));
+		else
+			setCadena(new ArrayList<String>());
 		setCabezaLE(1);
 	}
 	
@@ -101,8 +107,14 @@ public class Cinta {
 		for(int i = 0; i < getCadena().size(); i++)
 			System.out.print(getCadena().get(i));
 		System.out.println();
-		for(int i = 0; i < getCabezaLE(); i++)
+		for(int i = 0; i < getCabezaLE(); i++){
 			System.out.print(" ");
+			if(getCadena().get(i).length() > 1){
+				for(int j = 0; j < getCadena().get(i).length() - 1; j++)
+					System.out.print(" ");
+			}
+		}
+	
 		System.out.println("^");
 	}
 	
@@ -112,6 +124,16 @@ public class Cinta {
 	
 	public void cambiarSimbolo(String simboloNuevo){
 		getCadena().set(getCabezaLE(), simboloNuevo);
+	}
+	
+	public boolean comprobarCadena(){
+		for(int i = 0; i < getCadena().size(); i++){
+			for(int j = 0; j < getAlfabetoCinta().size(); j++){
+				if(!getCadena().get(i).equals(getAlfabetoCinta().get(j)))
+					return false;
+			}
+		}
+		return true;
 	}
 
 	/*

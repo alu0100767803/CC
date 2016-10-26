@@ -201,14 +201,15 @@ public class Maquina {
 			
 			indiceEstado = obtenerIndiceEstado(estadoActual);
 				if(indiceEstado < getMatrizTransiciones().size()){
-				transicion = obtenerTransicion(indiceEstado, getCinta().obtenerElemCad());
-				if(transicion != null){
-					estadoActual = transicion.getEstadoDestino();
-					getCinta().cambiarSimbolo(transicion.getSimboloNuevo());
-					getCinta().desplazamientoCinta(transicion.getDesplazamiento());
-				}
-				else 
-					bucle = false;
+					transicion = obtenerTransicion(indiceEstado, getCinta().obtenerElemCad());
+					System.out.println(transicion);
+					if(transicion != null){
+						estadoActual = transicion.getEstadoDestino();
+						getCinta().cambiarSimbolo(transicion.getSimboloNuevo());
+						getCinta().desplazamientoCinta(transicion.getDesplazamiento());
+					}
+					else 
+						bucle = false;
 			}
 				else
 					bucle = false;

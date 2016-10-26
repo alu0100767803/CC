@@ -80,7 +80,10 @@ public class Main {
 										cadena = scan.nextLine();
 										vectorCadena = new ArrayList<String>(Arrays.asList(cadena.split("")));
 										maquina.reiniciarCinta(vectorCadena);
-										maquina.ejecutar();
+										if(maquina.getCinta().comprobarCadena())
+											maquina.ejecutar();
+										else
+											System.out.println("La cadena no pertenece al alfabeto de la cinta");
 						break;
 					case 2: 	System.out.print("Introducir la cadena de entrada: ");
 										sc = new Scanner(System.in);
@@ -88,7 +91,10 @@ public class Main {
 										System.out.println();
 										vectorCadena = new ArrayList<String>(Arrays.asList(cadena.split("")));
 										maquina.reiniciarCinta(vectorCadena);
-										maquina.ejecutar();
+										if(maquina.getCinta().comprobarCadena())
+											maquina.ejecutar();
+										else
+											System.out.println("La cadena no pertenece al alfabeto de la cinta");
 						break;
 					case 3:		System.out.print("Introducir nuevo fichero: ");
 										sc = new Scanner(System.in);
