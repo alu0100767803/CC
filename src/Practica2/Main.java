@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import Practica1.Automata;
@@ -54,6 +55,7 @@ public class Main {
 		System.out.println();
 		Maquina maquina = new Maquina(fichero, vectorCadena);
 			while(!opcionValida){
+				try{
 				System.out.println("---Máquina de Turing---");
 				System.out.println("1. Introducir fichero con cadena a analizar");
 				System.out.println("2. Introducir cadena por entrada de texto");
@@ -116,8 +118,12 @@ public class Main {
 						break;
 				}
 			}
-		
-		
+			catch(InputMismatchException e){
+				sc.nextLine();
+				System.out.println("ERROR: debes introducir un número");
+				System.out.println();
+			}
+		}
 	}
 
 }
