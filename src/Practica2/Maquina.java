@@ -19,11 +19,11 @@ import java.util.StringTokenizer;
 public class Maquina {
 	
 	private Cinta cinta;
-	private ArrayList<String> estados;								// Estados de la máquina
-	private String estadoInicial;											// Estado inicial de la máquina
-	private ArrayList<String> estadosFinales; 				// Estados finales de la máquina
+	private ArrayList<String> estados;														// Estados de la máquina
+	private String estadoInicial;																	// Estado inicial de la máquina
+	private ArrayList<String> estadosFinales; 										// Estados finales de la máquina
 	private ArrayList<ArrayList<Transicion>> matrizTransiciones;	// Matriz con todas las transiciones de la máquina
-	private int cabezaLE;
+
 	
 	public Maquina(String ficheroLeido, ArrayList<String> cadena) throws FileNotFoundException{
 		lecturaFichero(ficheroLeido, cadena);
@@ -31,6 +31,12 @@ public class Maquina {
 		mostrarTransiciones();
 	}
 	
+	/**
+	 * Método que lee el fichero con la máquina de Turing
+	 * @param ficheroLeido
+	 * @param cadena
+	 * @throws FileNotFoundException
+	 */
 	private void lecturaFichero(String ficheroLeido, ArrayList<String> cadena) throws FileNotFoundException {
 		
 		// variables para la lectura del fichero 
@@ -89,7 +95,7 @@ public class Maquina {
 	}
 	
 	/**
-	 * Método parañadir una nueva transición
+	 * Método para añadir una nueva transición
 	 * @param aux
 	 */
 	public void anyadirTransicion(ArrayList<String> aux){
@@ -183,12 +189,17 @@ public class Maquina {
 		return getMatrizTransiciones().get(i).get(j);
 	}
 	
-	
+	/**
+	 * Método que reinicia la cinta de la máquina
+	 * @param cadena
+	 */
 	public void reiniciarCinta(ArrayList<String> cadena){
 		getCinta().reiniciarCadena(cadena);
 	}
 	
-	
+	/**
+	 * Método que ejecuta la cinta para comprobar la cadena de entrada
+	 */
 	public void ejecutar(){
 		boolean bucle = true;
 		String estadoActual = getEstadoInicial();
@@ -202,7 +213,6 @@ public class Maquina {
 			indiceEstado = obtenerIndiceEstado(estadoActual);
 				if(indiceEstado < getMatrizTransiciones().size()){
 					transicion = obtenerTransicion(indiceEstado, getCinta().obtenerElemCad());
-					System.out.println(transicion);
 					if(transicion != null){
 						estadoActual = transicion.getEstadoDestino();
 						getCinta().cambiarSimbolo(transicion.getSimboloNuevo());
@@ -224,6 +234,12 @@ public class Maquina {
 			
 	}
 	
+	/**
+	 * Método que obtiene una transicion de la matriz de transiciones
+	 * @param estado
+	 * @param elemCad
+	 * @return
+	 */
 	public Transicion obtenerTransicion(int estado, String elemCad){
 		Transicion transicion = null;
 		for(int i = 0; i < getMatrizTransiciones().get(estado).size(); i++){
@@ -234,6 +250,11 @@ public class Maquina {
 		return transicion;
 	}
 	
+	/**
+	 * Método que devuelve true si el estado es de aceptacion
+	 * @param estado
+	 * @return
+	 */
 	public boolean isAceptacion(String estado){
 		for(int i = 0; i < getEstadosFinales().size(); i++)
 			if(estado.equals(getEstadosFinales().get(i)))
@@ -242,6 +263,12 @@ public class Maquina {
 				
 	}
 	
+	/**
+	 * Método para cargar otra máquina de Turing
+	 * @param ficheroLeido
+	 * @param cadena
+	 * @throws FileNotFoundException
+	 */
 	public void actualizarAutomata(String ficheroLeido, ArrayList<String> cadena) throws FileNotFoundException{
 		lecturaFichero(ficheroLeido, cadena);
 	}
@@ -290,15 +317,5 @@ public class Maquina {
 	public void setMatrizTransiciones(ArrayList<ArrayList<Transicion>> matrizTransiciones) {
 		this.matrizTransiciones = matrizTransiciones;
 	}
-
-	public int getCabezaLE() {
-		return cabezaLE;
-	}
-
-	public void setCabezaLE(int cabezaLE) {
-		this.cabezaLE = cabezaLE;
-	}
-	
-	
 
 }

@@ -18,12 +18,12 @@ public class Cinta {
 	private final String IZQUIERDA = "L";							// Variable del movimiento a la izquierda la cinta
 	private final String PARADA = "S";								// Variable para no avanzar en la cinta
 	
-	private ArrayList<String> cadena;
-	private ArrayList<String> alfabetoEntrada;
-	private ArrayList<String> alfabetoCinta;
-	private String simboloBlanco;
-	private int cabezaLE;
-	private boolean cadenaAceptada;
+	private ArrayList<String> cadena;									// Vector con la cinra de la máquina
+	private ArrayList<String> alfabetoEntrada;				// Alfabeto de la cadena de entrada
+	private ArrayList<String> alfabetoCinta;					// Alfabeto de la cinta
+	private String simboloBlanco;											// Símbolo que representa el símbolo blanco
+	private int cabezaLE;															// Cabeza de lectura escritura de la cinta
+	private boolean cadenaAceptada;										// Variable que contiene si la cadena es aceptada o no
 	
 	public Cinta(ArrayList<String> cad, ArrayList<String> alfE, ArrayList<String> alfC, String blanco){
 		if(!cad.isEmpty())
@@ -41,6 +41,10 @@ public class Cinta {
 		
 	}
 	
+	/**
+	 * Método que reinicia la cinta con una cadena nueva
+	 * @param aux
+	 */
 	public void reiniciarCadena(ArrayList<String> aux){
 		if(!aux.get(0).equals(""))
 			setCadena(igualarArray(aux));
@@ -103,6 +107,9 @@ public class Cinta {
 		getCadena().add(0, getSimboloBlanco());
 	}
 	
+	/**
+	 * Método que muestra la cinta y la cabeza de lectura escritura
+	 */
 	public void mostrarCadena(){
 		for(int i = 0; i < getCadena().size(); i++)
 			System.out.print(getCadena().get(i));
@@ -118,22 +125,40 @@ public class Cinta {
 		System.out.println("^");
 	}
 	
+	/**
+	 * Método que devuelve el elemento al que apunta la cabeza de lectura escritura
+	 * @return
+	 */
 	public String obtenerElemCad(){
 		return getCadena().get(getCabezaLE());
 	}
 	
+	/**
+	 * Método que cambia el símbolo de la cinta al que apunta la cabeza de lectura escritura por el que introducce la transición
+	 * @param simboloNuevo
+	 */
 	public void cambiarSimbolo(String simboloNuevo){
 		getCadena().set(getCabezaLE(), simboloNuevo);
 	}
 	
+	/**
+	 * Método que devuelve true si los elementos de la cinta pertenecen al alfabeto de la cinta
+	 * @return
+	 */
 	public boolean comprobarCadena(){
 		for(int i = 0; i < getCadena().size(); i++){
-			for(int j = 0; j < getAlfabetoCinta().size(); j++){
-				if(!getCadena().get(i).equals(getAlfabetoCinta().get(j)))
-					return false;
-			}
+			if(!comprobarElemento(getCadena().get(i)))
+				return false;
 		}
 		return true;
+	}
+	
+	public boolean comprobarElemento(String elem){
+		for(int i = 0; i < getAlfabetoCinta().size(); i++){
+			if(elem.equals(getAlfabetoCinta().get(i)) || elem.equals(getSimboloBlanco()))
+				return true;
+		}
+		return false;
 	}
 
 	/*
