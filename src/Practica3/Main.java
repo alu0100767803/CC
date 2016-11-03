@@ -7,8 +7,11 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**
- * @author Jorge
- *
+ * @author Jorge Alonso Hernandez
+ * E-mail: alu0100767803@ull.edu.es
+ * Fecha: 28/10/16
+ * Asignatura: Complejidad Computacional
+ * Comentario: Programa principal para la potencia en FRP
  */
 public class Main {
 
@@ -38,6 +41,8 @@ public class Main {
 										System.out.print("Introducir y: ");
 										y = scan.nextInt();
 										System.out.println();
+										potencia = new Potencia(x, y);
+										potencia.mostrarResultado();
 						break;
 					case 2:	System.out.println("Saliendo...");
 									System.exit(0);
