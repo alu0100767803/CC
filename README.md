@@ -1,7 +1,7 @@
 # Complejidad Computacional
 
-## Practicas de la asignatura
-Repositorio con las practicas de la asignatura Complejidad Computacional, en el curso 2016/2017
+## Prácticas de la asignatura
+Repositorio con las prácticas de la asignatura Complejidad Computacional, en el curso 2016/2017
 
 ## Autor
 Jorge Alonso Hernández
